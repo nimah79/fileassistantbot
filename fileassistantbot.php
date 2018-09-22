@@ -89,7 +89,11 @@ class EventHandler extends \danog\MadelineProto\EventHandler
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'HEAD');
         $response = curl_exec($ch);
         if(curl_getinfo($ch, CURLINFO_HTTP_CODE) == '200') {
+            $effective_url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
             curl_close($ch);
+            if($url != $effective_url) {
+                return $this->curl_get_filename($effective_url);
+            }
             if(!preg_match('/text\/html/', $response)) {
               if(preg_match('/^Content-Disposition: .*?filename=(?<f>[^\s]+|\x22[^\x22]+\x22)\x3B?.*$/m', $response, $filename)) {
                 $filename = trim($filename['f'],' ";');
