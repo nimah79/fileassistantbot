@@ -59,6 +59,7 @@ class EventHandler extends \danog\MadelineProto\EventHandler
                         $file = fopen($filepath, 'w');
                         $ch = curl_init($text);
                         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
                         curl_setopt($ch, CURLOPT_FILE, $file);
                         curl_exec($ch);
                         curl_close($ch);
@@ -83,6 +84,7 @@ class EventHandler extends \danog\MadelineProto\EventHandler
         curl_setopt($ch, CURLOPT_HEADER, true);
         curl_setopt($ch, CURLOPT_NOBODY, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'HEAD');
         $response = curl_exec($ch);
