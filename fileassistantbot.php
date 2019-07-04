@@ -135,7 +135,7 @@ class EventHandler extends \danog\MadelineProto\EventHandler
                     return;
                 }
                 $client = new Amp\Artax\DefaultClient();
-                $promise = $client->request($url, [Amp\Artax\Client::OP_MAX_BODY_BYTES => 120 * 1024 * 1024]);
+                $promise = $client->request($url, [Amp\Artax\Client::OP_MAX_BODY_BYTES => (int) (1.5 * (1024 ** 3))]);
                 $response = yield $promise;
                 $headers = $response->getHeaders();
                 if (empty($headers['content-length'][0])) {
